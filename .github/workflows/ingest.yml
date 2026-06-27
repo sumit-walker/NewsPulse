@@ -10,4 +10,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Trigger ingest pipeline
-        run: curl -X POST "https://your-app.onrender.com/ingest/trigger"
+        run: curl -X POST "https://newspulse-er8p.onrender.com"
