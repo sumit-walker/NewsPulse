@@ -1,0 +1,13 @@
+name: Scheduled Ingest
+
+on:
+  schedule:
+    - cron: '0 */6 * * *'
+  workflow_dispatch:
+
+jobs:
+  trigger:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger ingest pipeline
+        run: curl -X POST "https://your-app.onrender.com/ingest/trigger"

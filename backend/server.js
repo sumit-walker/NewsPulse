@@ -19,7 +19,10 @@ const SCRAPER_DIR = path.resolve(__dirname, process.env.SCRAPER_DIR || "../scrap
 
 let db;
 
-MongoClient.connect(MONGO_URI)
+MongoClient.connect(MONGO_URI, {
+  tls: true,
+  tlsAllowInvalidCertificates: true,
+})
   .then((client) => {
     db = client.db(DB_NAME);
     console.log(`Connected to MongoDB: ${DB_NAME}`);
