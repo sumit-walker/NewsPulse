@@ -21,7 +21,8 @@ let db;
 
 MongoClient.connect(MONGO_URI, {
   tls: true,
-  tlsAllowInvalidCertificates: true,
+  tlsInsecure: true,
+  serverSelectionTimeoutMS: 10000,
 })
   .then((client) => {
     db = client.db(DB_NAME);
