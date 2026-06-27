@@ -4,6 +4,11 @@ A full-stack news aggregator that fetches articles from multiple RSS feeds, grou
 
 **Live**: [Frontend](https://newspulse-rock.netlify.app) | [API](https://newspulse-er8p.onrender.com)
 
+**Test endpoints**:
+- [Clusters](https://newspulse-er8p.onrender.com/clusters)
+- [Timeline](https://newspulse-er8p.onrender.com/timeline)
+- [Articles](https://newspulse-er8p.onrender.com/articles)
+
 ## Architecture
 
 ```
