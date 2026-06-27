@@ -9,9 +9,6 @@ const app = express();
 app.use(express.json());
 app.use(require("cors")());
 
-const FRONTEND_DIST = path.resolve(__dirname, "../frontend/dist");
-app.use(express.static(FRONTEND_DIST));
-
 const PORT = process.env.PORT || 3001;
 const MONGO_URI = process.env.MONGODB_URI || "mongodb://localhost:27017";
 const DB_NAME = process.env.MONGODB_DB || "newspulse";
@@ -236,9 +233,7 @@ app.get("/ingest/status/:jobId", async (req, res) => {
   }
 });
 
-app.get("*", (req, res) => {
-  res.sendFile(path.join(FRONTEND_DIST, "index.html"));
-});
+
 
 app.listen(PORT, () => {
   console.log(`NewsPulse API running on http://localhost:${PORT}`);
