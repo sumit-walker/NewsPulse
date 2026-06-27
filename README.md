@@ -2,6 +2,8 @@
 
 A full-stack news aggregator that fetches articles from multiple RSS feeds, groups related stories into topic clusters, and displays them on an interactive timeline.
 
+**Live**: [Frontend](https://newspulse-rock.netlify.app) | [API](https://newspulse-er8p.onrender.com)
+
 ## Architecture
 
 ```
