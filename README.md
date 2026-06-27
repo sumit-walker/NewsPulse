@@ -106,20 +106,36 @@ Or trigger from the UI: click "Refresh" → `POST /ingest/trigger`.
 | POST | /ingest/trigger | Run scraper + cluster pipeline |
 | GET | /ingest/status/:jobId | Poll job status |
 
-## Deployment (single service)
+## Deployment
 
-```bash
-cd frontend
-npm run build              # build once
+### Backend — Render
 
-cd ../backend
-# Deploy backend/ to any platform (Render, Railway, Fly.io)
-# Set start command: node server.js
-# Set env vars: MONGODB_URI, MONGODB_DB, PORT
-# Python must be installed for /ingest/trigger to work
-```
+1. Create a **Web Service** on Render, point it to your GitHub repo.
+2. **Root Directory**: `backend`
+3. **Build Command**: `npm install`
+4. **Start Command**: `npm start`
+5. **Environment Variables**:
 
-The Node.js server serves both the API and the built React frontend — no separate frontend hosting needed.
+   | Variable | Value |
+   |----------|-------|
+   | `MONGODB_URI` | Your MongoDB Atlas connection string |
+   | `MONGODB_DB` | `newspulse` |
+   | `SCRAPER_DIR` | `../scraper` |
+
+6. Deploy — the API will be available at `https://your-app.onrender.com`.
+
+### Frontend — Netlify / Vercel
+
+1. Import your GitHub repo.
+2. **Base directory**: `frontend`
+3. **Build command**: `npm run build`
+4. **Publish directory**: `dist`
+5. **Environment Variable**: `VITE_API_URL` = your Render backend URL
+6. Deploy.
+
+### Automated Ingest — GitHub Actions
+
+The repo includes `.github/workflows/ingest.yml` — a cron job that hits `POST /ingest/trigger` every 6 hours, keeping your site up-to-date automatically. No manual intervention needed.
 
 ---
 
