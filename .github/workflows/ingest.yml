@@ -5,9 +5,31 @@ on:
     - cron: '0 */6 * * *'
   workflow_dispatch:
 
+env:
+  MONGODB_URI: ${{ secrets.MONGODB_URI }}
+  MONGODB_DB: ${{ secrets.MONGODB_DB || 'newspulse' }}
+
 jobs:
-  trigger:
+  ingest:
     runs-on: ubuntu-latest
     steps:
-      - name: Trigger ingest pipeline
-        run: curl -X POST "https://newspulse-er8p.onrender.com/ingest/trigger"
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Create .env file
+        run: |
+          echo "MONGODB_URI=$MONGODB_URI" > .env
+          echo "MONGODB_DB=$MONGODB_DB" >> .env
+
+      - name: Fetch articles
+        run: python scraper/scraper.py
+
+      - name: Cluster articles
+        run: python scraper/cluster.py
